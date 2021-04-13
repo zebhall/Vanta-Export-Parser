@@ -28,37 +28,42 @@ def getColumnIndex(columnHeader):           # Gets the index number of the colum
                 if v == columnHeader:
                     return k
 
+
 def getRowCount():
     with open(exportName) as exportFile:
         reader = csv.reader(exportFile)
         rowCount = sum(1 for row in reader)
 
+
+def getHeaderIndexes():
+    for header in headerOrder:                              # fills headerIndexes list with the indexes of the headers specified in headerOrder, for easy parsing of future rows
+        try:
+            headerIndexes.append(getColumnIndex(header))    # try to find header index if such header exists in file
+        except:
+            headerIndexes.append(999)                       # if no such header found, list position filled with 999, which will give an index error later.
+
+
 def fillData():
-    for i in 
-
-
-
-def writeCSV():                             # Writes data in outputArray to output.csv
-    with open('output.csv', mode='w') as output_file:
-        writer = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        writer.writerow(outputArray)
-    print("output.csv was written successfully.")
+    with open('output.csv') as outputFile:
+        with open(exportName) as exportFile:
+            writer = csv.writer(outputFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            reader = csv.reader(exportFile)
+            for row in reader:
+                for i in headerIndexes:
+                    currentRowData.append(row[i])
+                writer.writerow(currentRowData)
+                
 
 
 
 
 getInput()
-for header in headerOrder:                              # fills headerIndexes list with the indexes of the headers specified in headerOrder, for easy parsing of future rows
-    try:
-        headerIndexes.append(getColumnIndex(header))    # try to find header index if such header exists in file
-    except:
-        headerIndexes.append(999)                       # if no such header found, list position filled with 999, which will give an index error later.
+getHeaderIndexes()
+getRowCount()
+fillData()
 
 
 
-
-
-writeCSV()
 input("Press Enter to continue...")
 
     
