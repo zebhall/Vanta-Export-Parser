@@ -5,10 +5,12 @@ import csv
 global headerOrder
 global headerIndexes
 global currentRowData
+global currentRowDataRaw
 global rowCount
-headerOrder = ["Reading #","Instrument Serial Num","Date","Time","Method Name"]
+headerOrder = ["Reading #","Instrument Serial Num","Date","Time","ASABNA","Method Name"]
 headerIndexes = []
 currentRowData = []
+currentRowDataRaw = []
 rowCount = 0
 
 
@@ -44,7 +46,7 @@ def getHeaderIndexes():
 
 
 def fillData():
-    with open('output.csv') as outputFile:
+    with open('output.csv', mode='w') as outputFile:
         with open(exportName) as exportFile:
             writer = csv.writer(outputFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             reader = csv.reader(exportFile)
@@ -55,6 +57,15 @@ def fillData():
                     except:
                         currentRowData.append("")
                 writer.writerow(currentRowData)
+                currentRowData.clear()
+
+#    r=0
+#    while r>(rowCount+1):
+#        currentRowData = []
+#        currentRowDataRaw = []
+#        with open(exportName) as exportFile:
+#            reader = csv.reader(exportFile)
+
                 
 
 
@@ -63,7 +74,7 @@ def fillData():
 getInput()
 getHeaderIndexes()
 getRowCount()
-fillData()\
+fillData()
 
 
 
