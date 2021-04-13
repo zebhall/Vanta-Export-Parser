@@ -5,9 +5,11 @@ import csv
 global headerOrder
 global headerIndexes
 global currentRowData
+global rowCount
 headerOrder = ["Reading #","Instrument Serial Num","Date","Time","Method Name"]
 headerIndexes = []
 currentRowData = []
+rowCount = 0
 
 
 
@@ -26,18 +28,23 @@ def getColumnIndex(columnHeader):           # Gets the index number of the colum
                 if v == columnHeader:
                     return k
 
+def getRowCount():
+    with open(exportName) as exportFile:
+        reader = csv.reader(exportFile)
+        rowCount = sum(1 for row in reader)
 
 def fillData():
-    
+    for i in 
 
 
 
 def writeCSV():                             # Writes data in outputArray to output.csv
-
     with open('output.csv', mode='w') as output_file:
         writer = csv.writer(output_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         writer.writerow(outputArray)
     print("output.csv was written successfully.")
+
+
 
 
 getInput()
