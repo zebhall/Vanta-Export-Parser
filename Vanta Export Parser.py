@@ -56,7 +56,7 @@ def fillData():
                     try:
                         currentRowData.append(row[i])
                     except:
-                        currentRowData.append(" ")
+                        currentRowData.append("")
                 writer.writerow(currentRowData)
                 currentRowData.clear()
 
