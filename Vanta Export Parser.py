@@ -50,7 +50,10 @@ def fillData():
             reader = csv.reader(exportFile)
             for row in reader:
                 for i in headerIndexes:
-                    currentRowData.append(row[i])
+                    try:
+                        currentRowData.append(row[i])
+                    except:
+                        currentRowData.append("")
                 writer.writerow(currentRowData)
                 
 
