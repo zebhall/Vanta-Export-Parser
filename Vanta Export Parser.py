@@ -1,4 +1,4 @@
-#   Vanta Export Parser v0.1 by ZH (13/04/2021)
+#   Vanta Export Parser v1.0 by ZH (14/04/2021)
 
 import csv
 
@@ -6,12 +6,12 @@ global headerOrder
 global headerIndexes
 global currentRowData
 global currentRowDataRaw
-global rowCount
-headerOrder = ["Instrument Serial Num","Test Label","Test Status","Date","Time","Method Name","Method ID","User Factor Name","Units","Real Time 1","Real Time 2","Real Time 3",]
+#global rowCount
+headerOrder = ["Instrument Serial Num","Test Label","Date","Time","Method ID","Test Status","Real Time 1","Real Time 2","Real Time 3","User Factor Name","Units","Al Concentration","Al Error1s","As Concentration","As Error1s","Fe Concentration","Fe Error1s","Rb Concentration","Rb Error1s","Ti Concentration","Ti Error1s","LE Concentration","LE Error1s"]
 headerIndexes = []
 currentRowData = []
 currentRowDataRaw = []
-rowCount = 0
+#rowCount = 0
 
 
 
@@ -31,10 +31,10 @@ def getColumnIndex(columnHeader):           # Gets the index number of the colum
                     return k
 
 
-def getRowCount():
-    with open(exportName) as exportFile:
-        reader = csv.reader(exportFile)
-        rowCount = sum(1 for row in reader)
+#def getRowCount():                          #Defunct function, unused.
+#    with open(exportName) as exportFile:
+#        reader = csv.reader(exportFile)
+#        rowCount = sum(1 for row in reader)
 
 
 def getHeaderIndexes():
@@ -45,7 +45,7 @@ def getHeaderIndexes():
             headerIndexes.append(999)                       # if no such header found, list position filled with 999, which will give an index error later.
 
 
-def fillData():
+def fillData():                                             # pulls data from file using header indexes then writes it to output.csv, one row at a time.
     with open('output.csv', mode='w', newline='') as outputFile:
         with open(exportName) as exportFile:
             writer = csv.writer(outputFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
@@ -67,14 +67,10 @@ def fillData():
 #        with open(exportName) as exportFile:
 #            reader = csv.reader(exportFile)
 
-                
-
-
 
 
 getInput()
 getHeaderIndexes()
-getRowCount()
 fillData()
 
 
