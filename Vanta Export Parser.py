@@ -1,4 +1,4 @@
-#   Vanta Export Parser v1.0 by ZH (14/04/2021)
+#   Vanta Export Parser v1.1 by ZH (14/04/2021)
 
 import csv
 
