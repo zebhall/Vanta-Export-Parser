@@ -2,18 +2,12 @@
 
 import csv
 
-global headerOrder
-global headerIndexes
-global currentRowData
-global currentRowDataRaw
-global outputPrefix 
-#global rowCount
+
 headerOrder = ["Instrument Serial Num","Test Label","Date","Time","Method ID","Test Status","Real Time 1","Real Time 2","Real Time 3","User Factor Name","Units","Al Concentration","Al Error1s","As Concentration","As Error1s","Fe Concentration","Fe Error1s","Rb Concentration","Rb Error1s","Ti Concentration","Ti Error1s","LE Concentration","LE Error1s"]
 headerIndexes = []
 currentRowData = []
 currentRowDataRaw = []
 outputPrefix = "FORMATTED_{}"
-#rowCount = 0
 
 
 
@@ -35,10 +29,11 @@ def getColumnIndex(columnHeader):           # Gets the index number of the colum
                     return k
 
 
-#def getRowCount():                          #Defunct function, unused.
-#    with open(inputName) as inputFile:
-#        reader = csv.reader(inputFile)
-#        rowCount = sum(1 for row in reader)
+def getRowCountTotal():                          
+    with open(inputName) as inputFile:
+        reader = csv.reader(inputFile)
+        global rowCountTotal
+        rowCountTotal = sum(1 for row in reader)
 
 
 def getHeaderIndexes():
@@ -51,11 +46,12 @@ def getHeaderIndexes():
 
 def fillData():                                             # pulls data from file using header indexes then writes it to output.csv, one row at a time.
     print("Writing information to file:", outputName)
-    with open('output.csv', mode='w', newline='') as outputFile:
+    with open(outputName, mode='w', newline='') as outputFile:
         with open(inputName) as inputFile:
             writer = csv.writer(outputFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             reader = csv.reader(inputFile)
             writer.writerow(headerOrder)
+            rowCount = 0
             for row in reader:
                 for i in headerIndexes:
                     try:
@@ -64,6 +60,8 @@ def fillData():                                             # pulls data from fi
                         currentRowData.append("")
                 writer.writerow(currentRowData)
                 currentRowData.clear()
+                rowCount += 1
+    print(rowCount, "of", rowCountTotal, "rows written successfully.")
 
 #    r=0
 #    while r>(rowCount+1):
@@ -76,6 +74,7 @@ def fillData():                                             # pulls data from fi
 
 getInput()
 getHeaderIndexes()
+getRowCountTotal()
 fillData()
 
 
