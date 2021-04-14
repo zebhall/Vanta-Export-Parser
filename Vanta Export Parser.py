@@ -3,7 +3,7 @@
 import csv
 
 
-headerOrder = ["Instrument Serial Num","Test Label","Date","Time","Method ID","Test Status","Real Time 1","Real Time 2","Real Time 3","User Factor Name","Units","Al Concentration","Al Error1s","As Concentration","As Error1s","Fe Concentration","Fe Error1s","Rb Concentration","Rb Error1s","Ti Concentration","Ti Error1s","LE Concentration","LE Error1s"]
+headerOrder = ["Instrument Serial Num","Test Label","Date","Time","Method ID","Test Status","Real Time 1","Real Time 2","Real Time 3","User Factor Name","Units","Al Concentration","Al Error1s","As Concentration","As Error1s","Fe Concentration","Fe Error1s","Rb Concentration","Rb Error1s","Ti Concentration","Ti Error1s"]
 headerIndexes = []
 currentRowData = []
 currentRowDataRaw = []
