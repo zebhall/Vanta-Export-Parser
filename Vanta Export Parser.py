@@ -12,7 +12,7 @@ headerOrder = ["Instrument Serial Num","Test Label","Date","Time","Method ID","T
 headerIndexes = []
 currentRowData = []
 currentRowDataRaw = []
-outputPrefix = "FORMATTED {}"
+outputPrefix = "FORMATTED_{}"
 #rowCount = 0
 
 
@@ -21,9 +21,9 @@ def getInput():                             # Gets user input and fills related 
 
     global inputName
     global outputName
-    inputName = input("Input the Vanta Export file name (including extension, e.g. chemistry-800151-2021-03-17-12-22-21.csv):")
+    inputName = input("Input the Vanta Export file name (including extension, e.g. chemistry-800151-2021-03-17-12-22-21.csv): ")
     outputName = outputPrefix.format(inputName)
-    print("Formatting", inputName, "to", outputName)
+    print("Reading information from file:", inputName)
 
 
 def getColumnIndex(columnHeader):           # Gets the index number of the column named in the input
@@ -50,6 +50,7 @@ def getHeaderIndexes():
 
 
 def fillData():                                             # pulls data from file using header indexes then writes it to output.csv, one row at a time.
+    print("Writing information to file:", outputName)
     with open('output.csv', mode='w', newline='') as outputFile:
         with open(inputName) as inputFile:
             writer = csv.writer(outputFile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
